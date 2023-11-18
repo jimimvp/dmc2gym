@@ -1,4 +1,4 @@
-from gym import core, spaces
+from gymnasium import core, spaces
 from dm_control import suite
 from dm_env import specs
 import numpy as np
@@ -7,7 +7,7 @@ import numpy as np
 def _spec_to_box(spec, dtype):
     def extract_min_max(s):
         assert s.dtype == np.float64 or s.dtype == np.float32
-        dim = np.int(np.prod(s.shape))
+        dim = int(np.prod(s.shape))
         if type(s) == specs.Array:
             bound = np.inf * np.ones(dim, dtype=np.float32)
             return -bound, bound
@@ -159,15 +159,15 @@ class DMCWrapper(core.Env):
         obs = self._get_obs(time_step)
         self.current_state = _flatten_obs(time_step.observation)
         extra['discount'] = time_step.discount
-        return obs, reward, done, extra
+        return obs, reward, done, done, extra
 
     def reset(self):
         time_step = self._env.reset()
         self.current_state = _flatten_obs(time_step.observation)
         obs = self._get_obs(time_step)
-        return obs
+        return (obs, {})
 
-    def render(self, mode='rgb_array', height=None, width=None, camera_id=0):
+    def render(self, mode='rgb_array', height=300, width=300, camera_id=0):
         assert mode == 'rgb_array', 'only support rgb_array mode, given %s' % mode
         height = height or self._height
         width = width or self._width

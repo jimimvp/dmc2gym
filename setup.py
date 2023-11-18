@@ -11,7 +11,7 @@ setup(
     keywords='gym dm_control openai deepmind',
     packages=find_packages(),
     install_requires=[
-        'gym',
+        'gymnasium',
         'dm_control',
     ],
 )
