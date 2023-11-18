@@ -8,7 +8,7 @@ A lightweight wrapper around the DeepMind Control Suite that provides the standa
 
 ### Instalation
 ```
-pip install git+git://github.com/denisyarats/dmc2gym.git
+pip install git+git://github.com/jimimvp/dmc2gym.git
 ```
 
 ### Usage
@@ -21,5 +21,5 @@ done = False
 obs = env.reset()
 while not done:
   action = env.action_space.sample()
-  obs, reward, done, info = env.step(action)
+  obs, reward, terminated, truncated, info = env.step(action)
 ```
