@@ -13,7 +13,8 @@ def make(
         episode_length=1000,
         environment_kwargs=None,
         time_limit=None,
-        channels_first=True
+        channels_first=True,
+        wrapper_version='',
 ):
     env_id = 'dmc_%s_%s_%s-v1' % (domain_name, task_name, seed)
 
@@ -31,7 +32,7 @@ def make(
             task_kwargs['time_limit'] = time_limit
         register(
             id=env_id,
-            entry_point='dmc2gym.wrappers:DMCWrapper',
+            entry_point=f'dmc2gym.wrappers:DMCWrapper{wrapper_version}',
             kwargs=dict(
                 domain_name=domain_name,
                 task_name=task_name,
